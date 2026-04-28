@@ -3,108 +3,674 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 PIONEER 6.2 - VIDEO + CHAT - BY AZEEZ IYANDA MISILIU 🚀</title>
+    <title>🚀 PIONEER - Social Network</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; }
-       .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px 20px; text-align: center; }
-        h1 { font-size: 60px; font-weight: 900; text-shadow: 0 0 20px rgba(255,255,255,0.5); margin-bottom: 8px; }
-       .tagline { font-size: 20px; font-weight: 700; text-transform: uppercase; }
-       .ceo { font-size: 16px; font-weight: 800; margin-top: 12px; background: rgba(255,255,255,0.2); display: inline-block; padding: 6px 18px; border-radius: 20px; border: 2px solid white; }
-       .container { max-width: 700px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr; gap: 20px; }
-        @media (min-width: 768px) {.container { grid-template-columns: 2fr 1fr; } }
-       .post-box,.chat-box { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #667eea; }
-       .box-title { font-weight: 800; color: #667eea; margin-bottom: 10px; font-size: 18px; }
-        textarea { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px; resize: none; font-size: 16px; font-family: inherit; outline: none; min-height: 60px; }
-       .btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 25px; border: none; border-radius: 8px; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 10px; width: 100%; }
-       .file-input { margin: 10px 0; }
-       .feed { margin-top: 20px; }
-       .post { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 15px; border-left: 4px solid #667eea; }
-       .post-author { font-weight: 800; margin-bottom: 8px; color: #667eea; }
-       .post-time { font-size: 12px; color: #65676b; margin-bottom: 8px; }
-        video { width: 100%; border-radius: 8px; margin-top: 10px; max-height: 400px; }
-       .chat-messages { height: 300px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 10px; margin-bottom: 10px; background: #f9f9f9; }
-       .chat-msg { margin-bottom: 8px; padding: 6px 10px; background: #e4e6eb; border-radius: 12px; display: inline-block; max-width: 80%; }
-       .chat-msg.me { background: #667eea; color: white; float: right; clear: both; }
-       .chat-input-row { display: flex; gap: 8px; }
-       .chat-input-row input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
+        
+        :root {
+            --primary: #1877f2;
+            --secondary: #e4e6eb;
+            --light-bg: #f0f2f5;
+            --white: #ffffff;
+            --text-primary: #050505;
+            --text-secondary: #65676b;
+            --border: #ccc;
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--light-bg);
+            color: var(--text-primary);
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav-brand {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-search {
+            flex: 1;
+            margin: 0 16px;
+            max-width: 240px;
+        }
+        
+        .nav-search input {
+            width: 100%;
+            padding: 10px 16px;
+            background: var(--light-bg);
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            font-size: 15px;
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .nav-icon {
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 16px auto;
+            padding: 0 8px;
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 16px;
+        }
+        
+        @media (max-width: 1024px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar-left, .sidebar-right { display: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar { padding: 8px 12px; }
+            .nav-search { display: none; }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 12px 0;
+            height: fit-content;
+            position: sticky;
+            top: 56px;
+        }
+        
+        .sidebar-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 4px 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .sidebar-item:hover {
+            background: var(--secondary);
+        }
+        
+        /* Feed */
+        .feed {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        /* Post Creator */
+        .post-creator {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .creator-header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .creator-input {
+            flex: 1;
+            background: var(--light-bg);
+            border: none;
+            border-radius: 20px;
+            padding: 10px 16px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+        
+        .creator-actions {
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--secondary);
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+        
+        .action-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* Post Card */
+        .post-card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--secondary);
+        }
+        
+        .post-meta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .post-author {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .post-time {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .post-more {
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .post-content {
+            padding: 12px 16px;
+            font-size: 15px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        
+        .post-media {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+        
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--secondary);
+            border-bottom: 1px solid var(--secondary);
+        }
+        
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+        }
+        
+        .post-action {
+            flex: 1;
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        
+        .post-action:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        
+        .post-action.liked {
+            color: #f02849;
+        }
+        
+        /* Comments Section */
+        .comments-section {
+            padding: 12px 16px;
+            border-top: 1px solid var(--secondary);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .comment {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .comment-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--secondary);
+            flex-shrink: 0;
+        }
+        
+        .comment-bubble {
+            background: var(--secondary);
+            padding: 8px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            word-wrap: break-word;
+            flex: 1;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .comment-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--secondary);
+        }
+        
+        .comment-input input {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--light-bg);
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .comment-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--primary);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--white);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 16px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group textarea,
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚀 PIONEER 🚀</h1>
-        <p class="tagline">THE NEW SOCIAL HOME</p>
-        <p class="ceo">👑 BY AZEEZ IYANDA MISILIU 👑</p>
+    <!-- Navigation -->
+    <div class="navbar">
+        <div class="nav-brand">👑 PIONEER</div>
+        <div class="nav-search">
+            <input type="text" placeholder="Search Pioneer...">
+        </div>
+        <div class="nav-icons">
+            <span class="nav-icon">👥</span>
+            <span class="nav-icon">💬</span>
+            <span class="nav-icon">🔔</span>
+            <span class="nav-icon">⚙️</span>
+        </div>
     </div>
     
+    <!-- Main Container -->
     <div class="container">
-        <div>
-            <div class="post-box">
-                <div class="box-title">📝 CREATE POST</div>
-                <textarea id="postInput" placeholder="What's the vision, CEO Azeez?"></textarea>
-                <input type="file" id="videoInput" accept="video/*" class="file-input">
-                <button class="btn" onclick="createPost()">🔥 POST TO PIONEER 🔥</button>
+        <!-- Left Sidebar -->
+        <div class="sidebar-left sidebar">
+            <div class="sidebar-item">🏠 Home</div>
+            <div class="sidebar-item">👥 Friends</div>
+            <div class="sidebar-item">🎥 Videos</div>
+            <div class="sidebar-item">💰 Marketplace</div>
+            <div class="sidebar-item">🎮 Games</div>
+            <div class="sidebar-item">📅 Events</div>
+            <div class="sidebar-item">📸 Photos</div>
+            <div class="sidebar-item">👑 CEO Azeez</div>
+        </div>
+        
+        <!-- Feed -->
+        <div class="feed" id="feed">
+            <!-- Post Creator -->
+            <div class="post-creator">
+                <div class="creator-header">
+                    <div class="avatar">👑</div>
+                    <input type="text" class="creator-input" placeholder="What's on your mind?" onclick="openPostModal()">
+                </div>
+                <div class="creator-actions">
+                    <button class="action-btn" onclick="openPostModal()">🎥 Live Video</button>
+                    <button class="action-btn" onclick="openPostModal()">📸 Photo/Video</button>
+                    <button class="action-btn" onclick="openPostModal()">😊 Feeling</button>
+                </div>
             </div>
             
-            <div class="feed" id="feed">
-                <div class="post">
-                    <div class="post-author">👑 Azeez Iyanda Misiliu - CEO & FOUNDER</div>
-                    <div class="post-time">11:28 PM - April 28, 2026</div>
-                    <div>WE LAUNCHED PIONEER TONIGHT!!! Video + Chat coming next!!! 🚀🌍💍❤️</div>
+            <!-- Sample Posts -->
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="post-meta">
+                        <div class="avatar">👑</div>
+                        <div>
+                            <div class="post-author">Azeez Iyanda Misiliu - CEO</div>
+                            <div class="post-time">28 April 2026 · 11:28 PM</div>
+                        </div>
+                    </div>
+                    <div class="post-more">⋯</div>
+                </div>
+                
+                <div class="post-content">
+                    🚀 PIONEER LAUNCHED TONIGHT!!! The future of social media is here! 
+                    <br><br>
+                    Built with 💪 passion for our community. Video + Chat + Community features coming soon! 
+                    <br><br>
+                    This is just the beginning! 🌍💍❤️
+                </div>
+                
+                <div class="post-stats">
+                    <span>👍 1.2K Likes</span>
+                    <span>💬 42 Comments · 📤 38 Shares</span>
+                </div>
+                
+                <div class="post-actions">
+                    <button class="post-action" onclick="toggleLike(this)">👍 Like</button>
+                    <button class="post-action" onclick="toggleComments(this)">💬 Comment</button>
+                    <button class="post-action">📤 Share</button>
+                </div>
+                
+                <div class="comments-section" style="display:none;">
+                    <div class="comment">
+                        <div class="comment-avatar"></div>
+                        <div class="comment-bubble">
+                            <div class="comment-author">Sarah Johnson</div>
+                            Amazing launch! Excited for what's next 🚀
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-avatar"></div>
+                        <div class="comment-bubble">
+                            <div class="comment-author">Alex Tech</div>
+                            This is going to change everything!
+                        </div>
+                    </div>
+                    <div class="comment-input">
+                        <input type="text" placeholder="Write a comment...">
+                        <button class="comment-btn">➤</button>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="chat-box">
-            <div class="box-title">💬 PIONEER CHAT</div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="chat-msg">👑 Azeez: Welcome to Pioneer Chat!</div>
+        
+        <!-- Right Sidebar -->
+        <div class="sidebar-right sidebar">
+            <div style="padding: 12px 16px; border-bottom: 1px solid #e4e6eb;">
+                <div style="font-weight: 600; margin-bottom: 12px;">👥 Friends</div>
+                <div class="sidebar-item">Alice Cooper</div>
+                <div class="sidebar-item">Bob Dylan</div>
+                <div class="sidebar-item">Carol King</div>
+                <div class="sidebar-item">David Smith</div>
             </div>
-            <div class="chat-input-row">
-                <input type="text" id="chatInput" placeholder="Message..." onkeypress="if(event.key==='Enter')sendChat()">
-                <button class="btn" style="width:auto; padding:8px 15px;" onclick="sendChat()">Send</button>
+            <div style="padding: 12px 16px;">
+                <div style="font-weight: 600; margin-bottom: 12px;">🎯 Trending</div>
+                <div class="sidebar-item">#PIONEER</div>
+                <div class="sidebar-item">#Technology</div>
+                <div class="sidebar-item">#Innovation</div>
             </div>
+        </div>
+    </div>
+    
+    <!-- Post Modal -->
+    <div class="modal" id="postModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Create Post</span>
+                <button class="modal-close" onclick="closePostModal()">✕</button>
+            </div>
+            
+            <div style="display: flex; gap: 12px; margin-bottom: 16px; align-items: center;">
+                <div class="avatar">👑</div>
+                <div>
+                    <div style="font-weight: 600;">Azeez Iyanda Misiliu</div>
+                    <div style="font-size: 13px; color: #65676b;">Public</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <textarea id="postText" placeholder="What's on your mind, CEO?"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>📸 Add Media</label>
+                <input type="file" id="postMedia" accept="image/*,video/*">
+            </div>
+            
+            <button class="btn-primary" onclick="createPost()">Post</button>
         </div>
     </div>
 
     <script>
-        function createPost() {
-            const input = document.getElementById('postInput');
-            const videoInput = document.getElementById('videoInput');
-            const feed = document.getElementById('feed');
-            if (input.value.trim() === '' &&!videoInput.files[0]) return;
-            
-            const post = document.createElement('div');
-            post.className = 'post';
-            let content = `
-                <div class="post-author">👑 Azeez Iyanda Misiliu</div>
-                <div class="post-time">Just now</div>
-                <div>${input.value}</div>
-            `;
-            
-            if (videoInput.files[0]) {
-                const videoURL = URL.createObjectURL(videoInput.files[0]);
-                content += `<video controls src="${videoURL}"></video>`;
-            }
-            
-            post.innerHTML = content;
-            feed.prepend(post);
-            input.value = '';
-            videoInput.value = '';
+        function openPostModal() {
+            document.getElementById('postModal').classList.add('active');
         }
         
-        function sendChat() {
-            const input = document.getElementById('chatInput');
-            const messages = document.getElementById('chatMessages');
-            if (input.value.trim() === '') return;
-            
-            const msg = document.createElement('div');
-            msg.className = 'chat-msg me';
-            msg.textContent = `👑 Azeez: ${input.value}`;
-            messages.appendChild(msg);
-            messages.scrollTop = messages.scrollHeight;
-            input.value = '';
+        function closePostModal() {
+            document.getElementById('postModal').classList.remove('active');
+            document.getElementById('postText').value = '';
+            document.getElementById('postMedia').value = '';
         }
+        
+        function createPost() {
+            const text = document.getElementById('postText').value.trim();
+            const media = document.getElementById('postMedia').files[0];
+            
+            if (!text && !media) {
+                alert('Please add some content');
+                return;
+            }
+            
+            const postCard = document.createElement('div');
+            postCard.className = 'post-card';
+            
+            let mediaHTML = '';
+            if (media) {
+                const mediaURL = URL.createObjectURL(media);
+                const isVideo = media.type.startsWith('video');
+                mediaHTML = isVideo 
+                    ? `<video class="post-media" controls src="${mediaURL}"></video>`
+                    : `<img class="post-media" src="${mediaURL}" alt="Post media">`;
+            }
+            
+            postCard.innerHTML = `
+                <div class="post-header">
+                    <div class="post-meta">
+                        <div class="avatar">👑</div>
+                        <div>
+                            <div class="post-author">Azeez Iyanda Misiliu</div>
+                            <div class="post-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="post-more">⋯</div>
+                </div>
+                <div class="post-content">${text.replace(/\n/g, '<br>')}</div>
+                ${mediaHTML}
+                <div class="post-stats">
+                    <span>👍 0 Likes</span>
+                    <span>💬 0 Comments · 📤 0 Shares</span>
+                </div>
+                <div class="post-actions">
+                    <button class="post-action" onclick="toggleLike(this)">👍 Like</button>
+                    <button class="post-action" onclick="toggleComments(this)">💬 Comment</button>
+                    <button class="post-action">📤 Share</button>
+                </div>
+                <div class="comments-section" style="display:none;">
+                    <div class="comment-input">
+                        <input type="text" placeholder="Write a comment...">
+                        <button class="comment-btn">➤</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('feed').insertBefore(postCard, document.getElementById('feed').children[1]);
+            closePostModal();
+        }
+        
+        function toggleLike(btn) {
+            btn.classList.toggle('liked');
+            btn.textContent = btn.classList.contains('liked') ? '❤️ Liked' : '👍 Like';
+        }
+        
+        function toggleComments(btn) {
+            const postCard = btn.closest('.post-card');
+            const commentsSection = postCard.querySelector('.comments-section');
+            commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        // Close modal on background click
+        document.getElementById('postModal').addEventListener('click', (e) => {
+            if (e.target.id === 'postModal') closePostModal();
+        });
     </script>
 </body>
 </html>
