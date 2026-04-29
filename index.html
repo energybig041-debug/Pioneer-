@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ko<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -324,61 +324,4 @@
                 plans[plan] + '\n\n' +
                 'Price: $' + price + '\n\n' +
                 'Pioneer 8.0 will connect real payment!\n' +
-                'For now: Screenshot this to CEO BIG ENERGY\n\n' +
-                'Proceed?'
-            );
-            
-            if(confirm) {
-                localStorage.setItem('pioneerVerified', plan);
-                localStorage.setItem('pioneerVerifiedDate', new Date().toLocaleDateString());
-                alert('✅ VERIFIED PURCHASED!\n\nPlan: ' + plans[plan] + '\n\nBIG ENERGY will activate your benefits!\n\nWelcome to Pioneer Verified! ⚡');
-                showVerified();
-            }
-        }
-
-        // Check if verified
-        function isVerified() {
-            return localStorage.getItem('pioneerVerified') !== null || localStorage.getItem('pioneerUser') === 'BIG ENERGY';
-        }
-        
-        function logout() {
-            localStorage.removeItem('pioneerUser');
-            location.reload();
-        }
-        
-        function createPost() {
-            const text = document.getElementById('postInput').value || prompt('What\'s on your mind?');
-            if(text) {
-                alert('Post created: ' + text + '\n\nPioneer 8.0 will save to database!');
-                document.getElementById('postInput').value = '';
-            }
-        }
-        
-        function likePost(postId) {
-            const btn = document.getElementById('likeBtn' + postId);
-            const countEl = document.getElementById('likeCount' + postId);
-            if(userLikes[postId]) {
-                likes[postId]--;
-                userLikes[postId] = false;
-                btn.classList.remove('liked');
-            } else {
-                likes[postId]++;
-                userLikes[postId] = true;
-                btn.classList.add('liked');
-            }
-            countEl.textContent = '👍 ' + (likes[postId] >= 1000? (likes[postId]/1000).toFixed(1) + 'K' : likes[postId]);
-        }
-        
-        function toggleComments(postId) {
-            document.getElementById('comments' + postId).classList.toggle('hidden');
-        }
-        
-        function addComment(postId, input) {
-            if(input.value.trim()) {
-                alert('Comment posted: ' + input.value + '\n\nPioneer 8.0 will save to database!');
-                input.value = '';
-            }
-        }
-    </script>
-</body>
-</html>
+                'For now: Screenshot this to CEO BIG ENERG
