@@ -1,327 +1,38 @@
-ko<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pioneer 7.4 - By BIG ENERGY</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #18191a; color: #e4e6eb; }
-      .hidden { display: none!important; }
-       .login-page { min-height: 100vh; background: #18191a; display: flex; align-items: center; justify-content: center; padding: 20px; }
-       .login-box { width: 100%; max-width: 400px; text-align: center; }
-       .login-title { font-size: 52px; font-weight: 900; margin-bottom: 40px; color: #667eea; }
-       .input { width: 100%; padding: 16px; margin-bottom: 12px; background: #3a3b3c; border: 1px solid #3e4042; border-radius: 8px; color: white; font-size: 16px; }
-       .btn { width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 17px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
-       .btn-green { background: #42b72a; width: auto; padding: 14px 24px; margin: 20px auto; display: block; }
-       .ceo-credit { margin-top: 40px; font-size: 14px; color: #b0b3b8; font-weight: 600; }
-       .header { background: #242526; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #3e4042; position: sticky; top: 0; z-index: 100; }
-       .logo { font-size: 28px; font-weight: 900; color: #667eea; cursor: pointer; }
-       .header-icons { display: flex; gap: 8px; }
-       .icon-btn { width: 40px; height: 40px; background: #3a3b3c; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; }
-       .nav-tabs { background: #242526; display: flex; border-bottom: 1px solid #3e4042; }
-       .nav-tab { flex: 1; padding: 12px; text-align: center; font-size: 24px; cursor: pointer; border-bottom: 3px solid transparent; }
-       .nav-tab.active { border-bottom-color: #667eea; color: #667eea; }
-       .create-post { background: #242526; padding: 12px; margin-bottom: 8px; }
-       .post-input-row { display: flex; gap: 8px; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #3e4042; margin-bottom: 12px; }
-       .avatar { width: 40px; height: 40px; background: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; }
-       .post-input { flex: 1; background: #3a3b3c; border: none; border-radius: 20px; padding: 10px 16px; color: white; font-size: 15px; cursor: pointer; }
-       .post-actions { display: flex; justify-content: space-around; }
-       .post-action { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #b0b3b8; cursor: pointer; }
-       .feed { background: #18191a; }
-       .post { background: #242526; margin-bottom: 8px; }
-       .post-header { padding: 12px; display: flex; align-items: center; gap: 8px; }
-       .post-user { flex: 1; }
-       .post-name { font-weight: 700; font-size: 15px; cursor: pointer; }
-       .post-time { font-size: 13px; color: #b0b3b8; }
-       .post-menu { font-size: 20px; cursor: pointer; }
-       .post-content { padding: 0 12px 12px; font-size: 15px; line-height: 1.4; }
-       .post-stats { padding: 8px 12px; display: flex; justify-content: space-between; font-size: 14px; color: #b0b3b8; border-bottom: 1px solid #3e4042; }
-       .post-buttons { display: flex; }
-       .post-btn { flex: 1; padding: 8px; text-align: center; font-weight: 600; color: #b0b3b8; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
-       .post-btn.liked { color: #667eea; }
-       .comments { padding: 0 12px 12px; }
-       .comment { display: flex; gap: 8px; margin-bottom: 8px; }
-       .comment-avatar { width: 32px; height: 32px; background: #3a3b3c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-       .comment-body { flex: 1; }
-       .comment-bubble { background: #3a3b3c; padding: 8px 12px; border-radius: 18px; display: inline-block; }
-       .comment-name { font-weight: 700; font-size: 13px; margin-bottom: 2px; }
-       .comment-text { font-size: 14px; }
-       .comment-input-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
-       .comment-input { flex: 1; background: #3a3b3c; border: none; border-radius: 20px; padding: 8px 16px; color: white; font-size: 14px; }
-       .menu-page { padding: 16px; max-width: 600px; margin: 0 auto; }
-       .profile-card { background: #242526; padding: 12px; border-radius: 8px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-       .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-       .menu-item { background: #242526; padding: 16px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
-       .menu-icon { font-size: 28px; }
-       .menu-text { font-size: 13px; font-weight: 600; text-align: center; }
-       .profile-header { background: #242526; padding: 20px; text-align: center; }
-       .profile-avatar { width: 120px; height: 120px; background: #667eea; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 60px; border: 3px solid #667eea; }
-       .profile-name { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-       .profile-bio { color: #b0b3b8; font-size: 15px; }
-       .verified-header { background: linear-gradient(135deg, #667eea 0%, #42b72a 100%); padding: 30px 16px; text-align: center; }
-       .verified-title { font-size: 32px; font-weight: 900; color: white; margin-bottom: 8px; }
-       .verified-subtitle { font-size: 16px; color: #e4e6eb; margin-bottom: 20px; }
-       .verified-plans { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 16px; max-width: 600px; margin: 0 auto; }
-       .plan-card { background: #242526; padding: 16px; border-radius: 12px; border: 2px solid #3e4042; cursor: pointer; transition: all 0.3s ease; }
-       .plan-card:hover { border-color: #667eea; background: #2a2b2c; }
-       .plan-badge { display: inline-block; background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
-       .plan-name { font-size: 18px; font-weight: 800; color: #667eea; margin-bottom: 8px; }
-       .plan-description { font-size: 14px; color: #b0b3b8; margin-bottom: 12px; }
-       .plan-price { font-size: 24px; font-weight: 900; color: #42b72a; margin-bottom: 12px; }
-       .plan-btn { width: 100%; padding: 10px; background: #667eea; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; }
-       .plan-btn:hover { background: #5568d3; }
-       .verified-status { text-align: center; padding: 20px; background: #242526; border-radius: 12px; margin: 16px; }
-       .verified-check { font-size: 60px; margin-bottom: 16px; }
-       .back-btn { display: inline-block; margin: 16px; padding: 10px 24px; background: #3a3b3c; color: white; border-radius: 8px; cursor: pointer; font-weight: 700; text-decoration: none; }
-    </style>
-</head>
-<body>
-    <div id="loginPage" class="login-page">
-        <div class="login-box">
-            <div class="login-title">pioneer</div>
-            <input type="text" id="loginName" class="input" placeholder="Email or phone number">
-            <input type="password" id="loginPass" class="input" placeholder="Password">
-            <button class="btn" onclick="login()">Log In</button>
-            <button class="btn btn-green" onclick="showSignup()">Create new account</button>
-            <div class="ceo-credit">⚡ By BIG ENERGY ⚡</div>
+    <!-- MESSAGES PAGE -->
+    <div id="messagesPage" class="menu-page hidden">
+        <div class="profile-card" onclick="showMenu()">
+            <div class="avatar">⬅️</div>
+            <div><div style="font-weight:700;">Messages</div><div style="font-size:13px; color:#b0b3b8;">Back to Menu</div></div>
+        </div>
+        <div style="background:#242526; border-radius:8px; padding:12px; margin-bottom:8px; display:flex; align-items:center; gap:12px; cursor:pointer;" onclick="openChat('Sarah Johnson')">
+            <div class="avatar">👤</div>
+            <div style="flex:1;"><div style="font-weight:700;">Sarah Johnson</div><div style="font-size:13px; color:#b0b3b8;">Hey BIG ENERGY! 👋</div></div>
+            <div style="font-size:12px; color:#667eea;">2m</div>
+        </div>
+        <div style="background:#242526; border-radius:8px; padding:12px; display:flex; align-items:center; gap:12px; cursor:pointer;">
+            <div class="avatar">👤</div>
+            <div style="flex:1;"><div style="font-weight:700;">Pioneer Team</div><div style="font-size:13px; color:#b0b3b8;">Welcome to Pioneer! ⚡</div></div>
+            <div style="font-size:12px; color:#b0b3b8;">1h</div>
         </div>
     </div>
 
-    <div id="mainApp" class="hidden">
-        <div class="header">
-            <div class="logo" onclick="showFeed()">pioneer</div>
-            <div class="header-icons">
-                <div class="icon-btn" onclick="showMenu()">☰</div>
-            </div>
+    <!-- SECURITY PAGE -->
+    <div id="securityPage" class="menu-page hidden">
+        <div class="profile-card" onclick="showMenu()">
+            <div class="avatar">⬅️</div>
+            <div><div style="font-weight:700;">Security Center</div><div style="font-size:13px; color:#b0b3b8;">Back to Menu</div></div>
         </div>
-        
-        <div id="feedPage">
-            <div class="create-post">
-                <div class="post-input-row">
-                    <div class="avatar" onclick="showProfile('BIG ENERGY')">⚡</div>
-                    <input class="post-input" id="postInput" placeholder="What's on your mind, BIG ENERGY?" onclick="createPost()">
-                </div>
+        <div style="background:#242526; border-radius:8px; padding:16px; margin-bottom:12px;">
+            <div style="font-weight:700; font-size:16px; margin-bottom:12px;">🛡️ Pioneer Security</div>
+            <div class="menu-item" style="flex-direction:row; justify-content:space-between; padding:12px; margin-bottom:8px;" onclick="toggle2FA()">
+                <div style="display:flex; align-items:center; gap:12px;"><div class="menu-icon">🔐</div><div><div class="menu-text">Two-Factor Auth</div></div></div>
+                <div id="2faStatus" style="color:#b0b3b8;">OFF</div>
             </div>
-            
-            <div class="feed" id="feed">
-                <div class="post" data-post-id="1">
-                    <div class="post-header">
-                        <div class="avatar" onclick="showProfile('BIG ENERGY')">⚡</div>
-                        <div class="post-user">
-                            <div class="post-name" onclick="showProfile('BIG ENERGY')">BIG ENERGY • <span style="color:#667eea;">Follow</span></div>
-                            <div class="post-time">Just now • 🌍</div>
-                        </div>
-                        <div class="post-menu">⋯</div>
-                    </div>
-                    <div class="post-content">
-                        PIONEER REBRAND!!! 🚀 Welcome to the BIG ENERGY era!!! ⚡ CEO BIG ENERGY in the building!!! Comments, likes, shares ALL WORKING!!! 💍❤️
-                    </div>
-                    <div class="post-stats">
-                        <div id="likeCount1">👍 2.4K</div>
-                        <div>43 comments • 19 shares</div>
-                    </div>
-                    <div class="post-buttons">
-                        <div class="post-btn" onclick="likePost(1)" id="likeBtn1">👍 Like</div>
-                        <div class="post-btn" onclick="toggleComments(1)">💬 Comment</div>
-                        <div class="post-btn">↗️ Share</div>
-                    </div>
-                    <div class="comments hidden" id="comments1">
-                        <div class="comment-input-row">
-                            <div class="avatar" style="width:32px;height:32px;font-size:16px;">⚡</div>
-                            <input class="comment-input" placeholder="Write a comment..." onkeypress="if(event.key==='Enter')addComment(1,this)">
-                        </div>
-                    </div>
-                </div>
+            <div class="menu-item" style="flex-direction:row; justify-content:flex-start; padding:12px; margin-bottom:8px;" onclick="alert('Report sent! BIG ENERGY team will review 🙏')">
+                <div class="menu-icon">🚩</div><div><div class="menu-text">Report User</div></div>
             </div>
-        </div>
-        
-        <div id="menuPage" class="menu-page hidden">
-            <div class="profile-card" onclick="showFeed()">
-                <div class="avatar">⬅️</div>
-                <div>
-                    <div style="font-weight:700;" id="userName">BIG ENERGY</div>
-                    <div style="font-size:13px; color:#b0b3b8;">Back to Feed</div>
-                </div>
+            <div class="menu-item" style="flex-direction:row; justify-content:flex-start; padding:12px;" onclick="alert('User Blocked! 🛡️')">
+                <div class="menu-icon">⛔</div><div><div class="menu-text">Block User</div></div>
             </div>
-            <div class="menu-grid">
-                <div class="menu-item" onclick="showProfile('BIG ENERGY')"><div class="menu-icon">👤</div><div class="menu-text">Profile</div></div>
-                <div class="menu-item" onclick="showVerified()"><div class="menu-icon">✅</div><div class="menu-text">Get Verified</div></div>
-                <div class="menu-item" onclick="logout()"><div class="menu-icon">↪️</div><div class="menu-text">Log Out</div></div>
-            </div>
-        </div>
-        
-        <div id="profilePage" class="menu-page hidden">
-            <div class="profile-header">
-                <div class="profile-avatar">⚡</div>
-                <div class="profile-name">BIG ENERGY</div>
-                <div class="profile-bio">CEO & Founder of Pioneer ⚡ BIG ENERGY 🚀</div>
-                <button class="btn" style="margin-top:16px; width:auto; padding:8px 24px;" onclick="showFeed()">⬅️ Back to Feed</button>
-            </div>
-        </div>
-
-        <div id="verifiedPage" class="hidden">
-            <div class="verified-header">
-                <div class="verified-title">⚡ Pioneer Verified</div>
-                <div class="verified-subtitle">Get verified and unlock exclusive benefits!</div>
-            </div>
-            
-            <div id="verifiedContent">
-                <div class="verified-plans">
-                    <div class="plan-card">
-                        <div class="plan-badge">MOST POPULAR</div>
-                        <div class="plan-name">📅 Yearly Verified</div>
-                        <div class="plan-description">Get a blue checkmark and exclusive features for 12 months</div>
-                        <div class="plan-price">$500/year</div>
-                        <button class="plan-btn" onclick="buyVerified('yearly', 500)">Get Verified</button>
-                    </div>
-
-                    <div class="plan-card">
-                        <div class="plan-badge">VIRAL</div>
-                        <div class="plan-name">🚀 Viral Boost</div>
-                        <div class="plan-description">Boost your posts to reach millions instantly</div>
-                        <div class="plan-price">$100/week</div>
-                        <button class="plan-btn" onclick="buyVerified('viral', 100)">Get Viral Boost</button>
-                    </div>
-
-                    <div class="plan-card">
-                        <div class="plan-badge">FOLLOWERS</div>
-                        <div class="plan-name">👥 200 Followers Boost</div>
-                        <div class="plan-description">Instant 200 real followers to your account</div>
-                        <div class="plan-price">$100</div>
-                        <button class="plan-btn" onclick="buyVerified('followers200', 100)">Buy Now</button>
-                    </div>
-
-                    <div class="plan-card">
-                        <div class="plan-badge">VIEWS</div>
-                        <div class="plan-name">📈 3.6K Video Views</div>
-                        <div class="plan-description">Get thousands of views on your video content</div>
-                        <div class="plan-price">$500 per video</div>
-                        <button class="plan-btn" onclick="buyVerified('views', 500)">Boost Video</button>
-                    </div>
-
-                    <div class="plan-card">
-                        <div class="plan-badge">PREMIUM</div>
-                        <div class="plan-name">👑 1 Million Followers</div>
-                        <div class="plan-description">Become a celebrity! Reach 1 MILLION followers instantly</div>
-                        <div class="plan-price">$700</div>
-                        <button class="plan-btn" onclick="buyVerified('million', 700)">Become Celebrity</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="verifiedStatusDiv" class="hidden">
-                <div class="verified-status">
-                    <div class="verified-check">✅</div>
-                    <div style="font-size: 20px; font-weight: 800; color: #667eea; margin-bottom: 12px;" id="verifiedPlanText"></div>
-                    <div style="font-size: 14px; color: #b0b3b8; margin-bottom: 16px;" id="verifiedDateText"></div>
-                    <button class="plan-btn" onclick="showMorePlans()">View More Plans</button>
-                </div>
-            </div>
-
-            <div class="back-btn" onclick="showFeed()">⬅️ Back to Feed</div>
         </div>
     </div>
-
-    <script>
-        let likes = {1: 2400};
-        let userLikes = {};
-        
-        if(localStorage.getItem('pioneerUser')) showApp();
-        
-        function showSignup() {
-            const name = prompt('Full Name:');
-            const pass = prompt('Password:');
-            if(name && pass) {
-                localStorage.setItem('pioneerUser', name);
-                showApp();
-            }
-        }
-        
-        function login() {
-            const name = document.getElementById('loginName').value;
-            if(!localStorage.getItem('pioneerUser')) return showSignup();
-            if(name === localStorage.getItem('pioneerUser')) showApp();
-            else alert('Wrong details! Sign up first');
-        }
-        
-        function showApp() {
-            document.getElementById('loginPage').classList.add('hidden');
-            document.getElementById('mainApp').classList.remove('hidden');
-            document.getElementById('userName').textContent = localStorage.getItem('pioneerUser');
-        }
-        
-        function showMenu() {
-            document.getElementById('feedPage').classList.add('hidden');
-            document.getElementById('profilePage').classList.add('hidden');
-            document.getElementById('verifiedPage').classList.add('hidden');
-            document.getElementById('menuPage').classList.remove('hidden');
-        }
-        
-        function showFeed() {
-            document.getElementById('menuPage').classList.add('hidden');
-            document.getElementById('profilePage').classList.add('hidden');
-            document.getElementById('verifiedPage').classList.add('hidden');
-            document.getElementById('feedPage').classList.remove('hidden');
-        }
-        
-        function showProfile(name) {
-            document.getElementById('feedPage').classList.add('hidden');
-            document.getElementById('menuPage').classList.add('hidden');
-            document.getElementById('verifiedPage').classList.add('hidden');
-            document.getElementById('profilePage').classList.remove('hidden');
-        }
-
-        function showVerified() {
-            document.getElementById('menuPage').classList.add('hidden');
-            document.getElementById('feedPage').classList.add('hidden');
-            document.getElementById('profilePage').classList.add('hidden');
-            document.getElementById('verifiedPage').classList.remove('hidden');
-            
-            // Show verified status if already purchased
-            if(isVerified() && localStorage.getItem('pioneerVerified')) {
-                document.getElementById('verifiedContent').classList.add('hidden');
-                document.getElementById('verifiedStatusDiv').classList.remove('hidden');
-                updateVerifiedStatus();
-            } else {
-                document.getElementById('verifiedContent').classList.remove('hidden');
-                document.getElementById('verifiedStatusDiv').classList.add('hidden');
-            }
-        }
-
-        function updateVerifiedStatus() {
-            const plans = {
-                yearly: '✅ Pioneer Verified Yearly - Blue Check',
-                viral: '🚀 Viral Boost - Active',
-                followers200: '👥 200 Followers Boost - Activated',
-                views: '📈 3.6K Video Views - Active',
-                million: '👑 1 Million Followers - Celebrity Status'
-            };
-            
-            const plan = localStorage.getItem('pioneerVerified');
-            const date = localStorage.getItem('pioneerVerifiedDate');
-            
-            document.getElementById('verifiedPlanText').textContent = plans[plan] || 'Premium Member';
-            document.getElementById('verifiedDateText').textContent = 'Purchased: ' + date;
-        }
-
-        function showMorePlans() {
-            document.getElementById('verifiedContent').classList.remove('hidden');
-            document.getElementById('verifiedStatusDiv').classList.add('hidden');
-        }
-        
-        function buyVerified(plan, price) {
-            const plans = {
-                yearly: 'Pioneer Verified Yearly - $500/year ✅ Blue Check',
-                viral: 'Viral Boost - $100/week 🚀 Go Viral',
-                followers200: '200 Followers - $100 👥 Instant Boost',
-                views: '3.6K Video Views - $500 📈 Per Video',
-                million: '1 MILLION FOLLOWERS - $700 👑 Celebrity Status'
-            };
-            
-            const confirm = window.confirm(
-                'BIG ENERGY VERIFIED\n' +
-                plans[plan] + '\n\n' +
-                'Price: $' + price + '\n\n' +
-                'Pioneer 8.0 will connect real payment!\n' +
-                'For now: Screenshot this to CEO BIG ENERG
