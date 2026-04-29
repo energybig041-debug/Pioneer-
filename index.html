@@ -36,7 +36,7 @@
         .story.add { background: #3a3b3c; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 8px; }
         .story-add-btn { width: 32px; height: 32px; background: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 8px; border: 4px solid #242526; }
         .story-text { font-size: 12px; font-weight: 600; text-align: center; }
-        .story-user { position: absolute; top: 8px; left: 8px; width: 36px; height: 36px; border-radius: 50%; background: #667eea; border: 4px solid #667eea; display: flex; align-items: center; justify-content: center; }
+        .story-user { position: absolute; top: 8px; left: 8px; width: 36px; height: 36px; border-radius: 50%; background: #667eea; border: 4px solid #667eea; display: flex; align-items: center; justify-content: center; font-size: 18px; }
         
         /* CREATE POST */
         .create-post { background: #242526; padding: 12px; margin-bottom: 8px; }
@@ -61,6 +61,22 @@
         .post-buttons { display: flex; }
         .post-btn { flex: 1; padding: 8px; text-align: center; font-weight: 600; color: #b0b3b8; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .post-btn:hover { background: #3a3b3c; border-radius: 6px; }
+        .post-btn.active { color: #667eea; }
+        
+        /* COMMENTS SECTION */
+        .comments-section { padding: 12px; border-top: 1px solid #3e4042; display: none; }
+        .comments-section.show { display: block; }
+        .comment-input { width: 100%; padding: 10px; background: #3a3b3c; border: 1px solid #3e4042; border-radius: 8px; color: white; margin-bottom: 12px; font-size: 14px; }
+        .comments-list { max-height: 300px; overflow-y: auto; margin-bottom: 12px; }
+        .comment { padding: 10px; background: #3a3b3c; border-radius: 8px; margin-bottom: 8px; }
+        .comment-author { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+        .comment-text { font-size: 14px; line-height: 1.3; }
+        .comment-time { font-size: 12px; color: #b0b3b8; margin-top: 6px; }
+        
+        /* REPOST SECTION */
+        .repost-card { background: #3a3b3c; border-left: 3px solid #667eea; padding: 12px; margin-bottom: 8px; border-radius: 6px; font-size: 13px; }
+        .repost-header { color: #b0b3b8; margin-bottom: 8px; }
+        .repost-icon { margin-right: 6px; }
         
         /* MENU */
         .menu-page { padding: 16px; max-width: 600px; margin: 0 auto; }
@@ -69,6 +85,15 @@
         .menu-item { background: #242526; padding: 16px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
         .menu-icon { font-size: 28px; }
         .menu-text { font-size: 13px; font-weight: 600; text-align: center; }
+        
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: #242526; padding: 20px; border-radius: 12px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
+        .modal-header { font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { font-size: 24px; cursor: pointer; color: #b0b3b8; }
+        .modal-action-btn { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 12px; }
+        .modal-action-btn:hover { background: #5568d3; }
     </style>
 </head>
 <body>
@@ -136,8 +161,8 @@
                 </div>
             </div>
             
-            <div class="feed">
-                <div class="post">
+            <div class="feed" id="feed">
+                <div class="post" data-post-id="1">
                     <div class="post-header">
                         <div class="avatar">👑</div>
                         <div class="post-user">
@@ -150,13 +175,17 @@
                         PIONEER LAUNCHED TONIGHT!!! 🚀 The new social home is here!!! CEO Azeez built this in 2 hours!!! No more waiting for tomorrow... We build TODAY!!! 💍❤️
                     </div>
                     <div class="post-stats">
-                        <div>👍 1.4K</div>
-                        <div>23 comments • 9 shares</div>
+                        <div><span class="like-count">👍 1.4K</span></div>
+                        <div><span class="comment-count">23</span> comments • <span class="share-count">9</span> shares</div>
                     </div>
                     <div class="post-buttons">
                         <div class="post-btn" onclick="likePost(this)">👍 Like</div>
-                        <div class="post-btn">💬 Comment</div>
-                        <div class="post-btn">↗️ Share</div>
+                        <div class="post-btn" onclick="toggleComments(this)">💬 Comment</div>
+                        <div class="post-btn" onclick="sharePost(this)">↗️ Share</div>
+                    </div>
+                    <div class="comments-section">
+                        <input type="text" class="comment-input" placeholder="Write a comment..." onkeypress="handleCommentKey(event, this)">
+                        <div class="comments-list"></div>
                     </div>
                 </div>
             </div>
@@ -183,7 +212,26 @@
         </div>
     </div>
 
+    <!-- SHARE MODAL -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Share Post</span>
+                <span class="close-btn" onclick="closeShareModal()">&times;</span>
+            </div>
+            <div style="margin-bottom: 16px; font-size: 14px; color: #b0b3b8;">
+                How would you like to share this post?
+            </div>
+            <button class="modal-action-btn" onclick="shareToFeed()">📱 Share to Your Timeline</button>
+            <button class="modal-action-btn" onclick="repostToFeed()">🔄 Repost (Share with credit)</button>
+            <button class="modal-action-btn" onclick="closeShareModal()">Cancel</button>
+        </div>
+    </div>
+
     <script>
+        let posts = [];
+        let currentSharePostId = null;
+        
         if(localStorage.getItem('pioneerUser')) showApp();
         
         function showSignup() {
@@ -225,18 +273,176 @@
         
         function createPost() {
             const text = prompt('What\'s on your mind?');
-            if(text) alert('Post created! ' + text + '\n\nPioneer 8.0 will save to database!');
+            if(text) {
+                alert('Post created! ' + text + '\n\nPioneer 8.0 will save to database!');
+                // Add new post to feed
+                addPostToFeed(text);
+            }
+        }
+        
+        function addPostToFeed(content) {
+            const feed = document.getElementById('feed');
+            const currentUser = localStorage.getItem('pioneerUser');
+            
+            const newPost = document.createElement('div');
+            newPost.className = 'post';
+            newPost.dataset.postId = Date.now();
+            newPost.innerHTML = `
+                <div class="post-header">
+                    <div class="avatar">👤</div>
+                    <div class="post-user">
+                        <div class="post-name">${currentUser} • <span style="color:#667eea;">Follow</span></div>
+                        <div class="post-time">Just now • 🌍</div>
+                    </div>
+                    <div class="post-menu">⋯</div>
+                </div>
+                <div class="post-content">${content}</div>
+                <div class="post-stats">
+                    <div><span class="like-count">👍 0</span></div>
+                    <div><span class="comment-count">0</span> comments • <span class="share-count">0</span> shares</div>
+                </div>
+                <div class="post-buttons">
+                    <div class="post-btn" onclick="likePost(this)">👍 Like</div>
+                    <div class="post-btn" onclick="toggleComments(this)">💬 Comment</div>
+                    <div class="post-btn" onclick="sharePost(this)">↗️ Share</div>
+                </div>
+                <div class="comments-section">
+                    <input type="text" class="comment-input" placeholder="Write a comment..." onkeypress="handleCommentKey(event, this)">
+                    <div class="comments-list"></div>
+                </div>
+            `;
+            
+            feed.insertBefore(newPost, feed.firstChild);
         }
         
         function likePost(btn) {
-            if(btn.textContent.includes('1.4K')) {
-                btn.innerHTML = '👍 1.4K';
-                btn.style.color = '#b0b3b8';
+            const isLiked = btn.classList.contains('active');
+            const post = btn.closest('.post');
+            const likeCount = post.querySelector('.like-count');
+            let count = parseInt(likeCount.textContent.match(/\d+/)[0]) || 0;
+            
+            if(isLiked) {
+                count--;
+                btn.classList.remove('active');
+                btn.innerHTML = '👍 Like';
             } else {
-                btn.innerHTML = '👍 1.4K';
-                btn.style.color = '#667eea';
+                count++;
+                btn.classList.add('active');
+                btn.innerHTML = '👍 ' + (count > 999 ? (count/1000).toFixed(1) + 'K' : count);
             }
+            
+            likeCount.textContent = '👍 ' + (count > 999 ? (count/1000).toFixed(1) + 'K' : count);
+        }
+        
+        function toggleComments(btn) {
+            const post = btn.closest('.post');
+            const commentsSection = post.querySelector('.comments-section');
+            commentsSection.classList.toggle('show');
+            
+            if(commentsSection.classList.contains('show')) {
+                commentsSection.querySelector('.comment-input').focus();
+            }
+        }
+        
+        function handleCommentKey(event, input) {
+            if(event.key === 'Enter' && input.value.trim()) {
+                const post = input.closest('.post');
+                const commentsList = post.querySelector('.comments-list');
+                const currentUser = localStorage.getItem('pioneerUser');
+                
+                const comment = document.createElement('div');
+                comment.className = 'comment';
+                comment.innerHTML = `
+                    <div class="comment-author">${currentUser}</div>
+                    <div class="comment-text">${input.value}</div>
+                    <div class="comment-time">Just now</div>
+                `;
+                
+                commentsList.appendChild(comment);
+                
+                // Update comment count
+                const commentCount = post.querySelector('.comment-count');
+                let count = parseInt(commentCount.textContent) || 0;
+                commentCount.textContent = count + 1;
+                
+                input.value = '';
+            }
+        }
+        
+        function sharePost(btn) {
+            currentSharePostId = btn.closest('.post').dataset.postId;
+            document.getElementById('shareModal').classList.add('show');
+        }
+        
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.remove('show');
+            currentSharePostId = null;
+        }
+        
+        function shareToFeed() {
+            const post = document.querySelector(`[data-post-id="${currentSharePostId}"]`);
+            const content = post.querySelector('.post-content').textContent;
+            const author = post.querySelector('.post-name').textContent.split(' •')[0];
+            
+            const shareCount = post.querySelector('.share-count');
+            let count = parseInt(shareCount.textContent) || 0;
+            shareCount.textContent = count + 1;
+            
+            addPostToFeed(`Shared: "${content}" - ${author}`);
+            closeShareModal();
+            alert('Post shared to your timeline! ✅');
+        }
+        
+        function repostToFeed() {
+            const post = document.querySelector(`[data-post-id="${currentSharePostId}"]`);
+            const content = post.querySelector('.post-content').textContent;
+            const author = post.querySelector('.post-name').textContent.split(' •')[0];
+            const currentUser = localStorage.getItem('pioneerUser');
+            
+            const feed = document.getElementById('feed');
+            const repostDiv = document.createElement('div');
+            repostDiv.className = 'post';
+            repostDiv.dataset.postId = Date.now();
+            
+            repostDiv.innerHTML = `
+                <div class="repost-card">
+                    <div class="repost-header">
+                        <span class="repost-icon">🔄</span>${currentUser} reposted from ${author}
+                    </div>
+                </div>
+                <div class="post-header">
+                    <div class="avatar">👤</div>
+                    <div class="post-user">
+                        <div class="post-name">${author}</div>
+                        <div class="post-time">Earlier • 🌍</div>
+                    </div>
+                    <div class="post-menu">⋯</div>
+                </div>
+                <div class="post-content">${content}</div>
+                <div class="post-stats">
+                    <div><span class="like-count">👍 0</span></div>
+                    <div><span class="comment-count">0</span> comments • <span class="share-count">0</span> shares</div>
+                </div>
+                <div class="post-buttons">
+                    <div class="post-btn" onclick="likePost(this)">👍 Like</div>
+                    <div class="post-btn" onclick="toggleComments(this)">💬 Comment</div>
+                    <div class="post-btn" onclick="sharePost(this)">↗️ Share</div>
+                </div>
+                <div class="comments-section">
+                    <input type="text" class="comment-input" placeholder="Write a comment..." onkeypress="handleCommentKey(event, this)">
+                    <div class="comments-list"></div>
+                </div>
+            `;
+            
+            feed.insertBefore(repostDiv, feed.firstChild);
+            
+            const shareCount = post.querySelector('.share-count');
+            let count = parseInt(shareCount.textContent) || 0;
+            shareCount.textContent = count + 1;
+            
+            closeShareModal();
+            alert('Post reposted! 🔄');
         }
     </script>
 </body>
-                    </html>
+</html>
