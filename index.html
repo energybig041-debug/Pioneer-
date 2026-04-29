@@ -3,55 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pioneer 8.2 - By BIG ENERGY</title>
+    <title>Pioneer 8.3 - By BIG ENERGY</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #000; color: #e4e6eb; }
       .hidden { display: none!important; }
-       
-       /* LOGIN */
        .fb-login-page { min-height: 100vh; background: #000; display: flex; flex-direction: column; padding: 20px; }
        .lang-selector { text-align: center; color: #b0b3b8; font-size: 14px; margin: 20px 0 40px; cursor: pointer; }
        .fb-logo { width: 60px; height: 60px; background: #667eea; border-radius: 50%; margin: 0 auto 40px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 900; color: white; }
        .login-form { max-width: 396px; margin: 0 auto; width: 100%; }
        .fb-input { width: 100%; padding: 18px 16px; background: #1c1e21; border: 1px solid #3a3b3c; border-radius: 6px; color: white; font-size: 17px; margin-bottom: 12px; }
        .fb-btn { width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 6px; font-size: 20px; font-weight: 700; cursor: pointer; margin: 16px 0; }
+       .fb-btn:disabled { background: #3a3b3c; cursor: not-allowed; }
        .forgot-link { text-align: center; color: #667eea; font-size: 16px; cursor: pointer; margin: 16px 0; }
        .divider { height: 1px; background: #3a3b3c; margin: 24px 0; }
        .create-btn { width: 100%; max-width: 200px; padding: 14px; background: transparent; color: #667eea; border: 1px solid #667eea; border-radius: 6px; font-size: 17px; font-weight: 700; cursor: pointer; margin: 0 auto; display: block; }
        .meta-footer { text-align: center; margin-top: auto; padding: 20px 0; color: #8a8d91; font-size: 14px; }
-
-       /* MAIN APP */
-       .header { background: #242526; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #3e4042; position: sticky; top: 0; z-index: 100; }
-       .logo { font-size: 28px; font-weight: 900; color: #667eea; cursor: pointer; }
-       .user-name { color: #b0b3b8; font-size: 14px; }
-       .feed { background: #18191a; min-height: calc(100vh - 60px); padding: 8px; }
-       .create-post { background: #242526; border-radius: 8px; padding: 12px; margin-bottom: 8px; }
-       .post-input { width: 100%; padding: 12px; background: #3a3b3c; border: none; border-radius: 20px; color: white; font-size: 15px; }
-       .post-btn { width: 100%; padding: 8px; background: #667eea; color: white; border: none; border-radius: 6px; font-weight: 700; margin-top: 8px; cursor: pointer; }
-       .post { background: #242526; margin-bottom: 8px; border-radius: 8px; }
-       .post-header { padding: 12px; display: flex; align-items: center; gap: 8px; }
-       .avatar { width: 40px; height: 40px; background: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-       .post-user { flex: 1; }
-       .post-name { font-weight: 700; font-size: 15px; }
-       .post-time { font-size: 13px; color: #b0b3b8; }
-       .post-content { padding: 0 12px 12px; font-size: 15px; line-height: 1.4; }
-       .post-stats { padding: 8px 12px; border-top: 1px solid #3e4042; border-bottom: 1px solid #3e4042; font-size: 13px; color: #b0b3b8; display: flex; justify-content: space-between; }
-       .post-buttons { display: flex; }
-       .post-btn-action { flex: 1; padding: 8px; text-align: center; font-weight: 600; color: #b0b3b8; cursor: pointer; border: none; background: transparent; }
-       .post-btn-action:active { background: #3a3b3c; }
-       .post-btn-action.liked { color: #667eea; }
-       
-       /* COMMENTS */
-       .comments-section { background: #1c1e21; padding: 12px; border-top: 1px solid #3e4042; }
-       .comment { display: flex; gap: 8px; margin-bottom: 8px; }
-       .comment-avatar { width: 32px; height: 32px; background: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-       .comment-bubble { background: #3a3b3c; border-radius: 18px; padding: 8px 12px; flex: 1; }
-       .comment-name { font-weight: 700; font-size: 13px; }
-       .comment-text { font-size: 14px; }
-       .comment-input-box { display: flex; gap: 8px; margin-top: 8px; }
-       .comment-input { flex: 1; padding: 8px 12px; background: #3a3b3c; border: none; border-radius: 18px; color: white; font-size: 14px; }
-       .comment-send { padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 18px; font-weight: 700; cursor: pointer; }
+       .otp-input { text-align: center; font-size: 24px; letter-spacing: 8px; font-weight: 700; }
+       .error { color: #ff4444; font-size: 13px; margin: -8px 0 8px; }
+       .success { color: #42b72a; font-size: 13px; margin: -8px 0 8px; }
     </style>
 </head>
 <body>
@@ -60,21 +30,16 @@
         <div class="lang-selector" onclick="showLanguages()">
             🌍 <span id="currentLang">English (US)</span> ▼
         </div>
-        
         <div class="fb-logo">P</div>
-        
         <div class="login-form">
             <input type="text" id="loginEmail" class="fb-input" placeholder="Mobile number or email address">
             <input type="password" id="loginPass" class="fb-input" placeholder="Password">
             <button class="fb-btn" onclick="login()">Log in</button>
-            <div class="forgot-link" onclick="alert('Pioneer 9.0 will send reset link!')">Forgotten password?</div>
+            <div class="forgot-link" onclick="forgotPassword()">Forgotten password?</div>
             <div class="divider"></div>
             <button class="create-btn" onclick="showSignup()">Create new account</button>
         </div>
-        
-        <div class="meta-footer">
-            ∞ Pioneer by BIG ENERGY
-        </div>
+        <div class="meta-footer">∞ Pioneer by BIG ENERGY</div>
     </div>
 
     <!-- SIGNUP PAGE -->
@@ -83,43 +48,46 @@
         <div class="login-form">
             <input type="text" id="firstName" class="fb-input" placeholder="First name">
             <input type="text" id="lastName" class="fb-input" placeholder="Last name">
-            <input type="text" id="signupEmail" class="fb-input" placeholder="Mobile number or email address">
+            <input type="text" id="signupContact" class="fb-input" placeholder="Mobile number or email address">
+            <div id="contactError" class="error hidden"></div>
             <input type="password" id="signupPass" class="fb-input" placeholder="New password">
-            <button class="fb-btn" onclick="signup()">Sign Up</button>
+            <button class="fb-btn" id="signupBtn" onclick="startSignup()">Sign Up</button>
             <div class="forgot-link" onclick="showLogin()">Already have an account?</div>
+        </div>
+    </div>
+
+    <!-- OTP VERIFY PAGE -->
+    <div id="otpPage" class="fb-login-page hidden">
+        <div class="fb-logo" style="margin-top: 60px;">P</div>
+        <div class="login-form">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Enter confirmation code</div>
+                <div style="color: #b0b3b8; font-size: 15px;" id="otpSubtitle">We sent a 6-digit code to your email/phone</div>
+            </div>
+            <input type="text" id="otpCode" class="fb-input otp-input" placeholder="000000" maxlength="6">
+            <div id="otpError" class="error hidden">Wrong code. Try again.</div>
+            <button class="fb-btn" onclick="verifyOTP()">Confirm</button>
+            <div class="forgot-link" onclick="resendOTP()">Didn't get a code? Resend</div>
+            <div class="forgot-link" onclick="showSignup()">Back</div>
         </div>
     </div>
 
     <!-- MAIN APP -->
     <div id="mainApp" class="hidden">
-        <div class="header">
-            <div class="logo" onclick="location.reload()">pioneer</div>
-            <div class="user-name" id="userDisplay">BIG ENERGY ✅</div>
-        </div>
-        
-        <div class="feed">
-            <!-- CREATE POST -->
-            <div class="create-post">
-                <input type="text" id="postInput" class="post-input" placeholder="What's on your mind?">
-                <button class="post-btn" onclick="createPost()">Post</button>
-            </div>
-            
-            <!-- POSTS WILL APPEAR HERE -->
-            <div id="postsContainer"></div>
+        <div style="background: #242526; padding: 12px; text-align: center;">
+            <div style="font-size: 24px; font-weight: 900; color: #667eea;">pioneer</div>
+            <div style="color: #b0b3b8; margin-top: 8px;">Welcome, <span id="welcomeName">BIG ENERGY</span>! ✅</div>
         </div>
     </div>
 
     <script>
-        let posts = [];
-        let currentUser = '';
-        
-        if(localStorage.getItem('pioneerUser')) {
-            showApp();
-            loadPosts();
-        }
+        let generatedOTP = '';
+        let signupData = {};
+        let isEmail = false;
 
         function showLogin() {
             document.getElementById('signupPage').classList.add('hidden');
+            document.getElementById('otpPage').classList.add('hidden');
             document.getElementById('loginPage').classList.remove('hidden');
         }
 
@@ -128,28 +96,85 @@
             document.getElementById('signupPage').classList.remove('hidden');
         }
 
-        function signup() {
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('signupEmail').value;
+        function startSignup() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const contact = document.getElementById('signupContact').value.trim();
             const pass = document.getElementById('signupPass').value;
+            const errorDiv = document.getElementById('contactError');
 
-            if(!firstName || !lastName || !email || !pass) {
-                alert('Please fill all fields!');
+            if(!firstName || !lastName || !contact || !pass) {
+                errorDiv.textContent = 'Please fill all fields!';
+                errorDiv.classList.remove('hidden');
                 return;
             }
 
-            currentUser = firstName + ' ' + lastName;
-            localStorage.setItem('pioneerUser', currentUser);
-            localStorage.setItem('pioneerEmail', email);
-            localStorage.setItem('pioneerPass', pass);
+            // Check if email or phone
+            isEmail = contact.includes('@');
+            const phoneRegex = /^[\+]?[0-9]{10,15}$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if(!isEmail && !phoneRegex.test(contact.replace(/\s/g, ''))) {
+                errorDiv.textContent = 'Enter valid email or phone number';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            if(isEmail && !emailRegex.test(contact)) {
+                errorDiv.textContent = 'Enter valid email address';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            errorDiv.classList.add('hidden');
             
-            alert('✅ Account Created!\n\nWelcome to Pioneer, ' + currentUser + '! ⚡');
-            showApp();
+            signupData = {
+                name: firstName + ' ' + lastName,
+                contact: contact,
+                pass: pass,
+                type: isEmail ? 'email' : 'phone'
+            };
+
+            // Generate OTP
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            // SHOW OTP PAGE
+            document.getElementById('signupPage').classList.add('hidden');
+            document.getElementById('otpPage').classList.remove('hidden');
+            document.getElementById('otpSubtitle').textContent = `We sent a 6-digit code to ${contact}`;
+            
+            // IN PRODUCTION: Call your backend here to send real SMS/Email
+            // For now: Show code (replace this with Firebase/Twilio)
+            alert(`PIONEER VERIFICATION\n\nYour code is: ${generatedOTP}\n\nSent to: ${contact}\n\n(In production: This sends to real ${isEmail ? 'email' : 'SMS'})\n\n⚡ Enter code to continue`);
+        }
+
+        function verifyOTP() {
+            const code = document.getElementById('otpCode').value;
+            const errorDiv = document.getElementById('otpError');
+            
+            if(code === generatedOTP) {
+                // Save user
+                localStorage.setItem('pioneerUser', signupData.name);
+                localStorage.setItem('pioneerContact', signupData.contact);
+                localStorage.setItem('pioneerPass', signupData.pass);
+                localStorage.setItem('pioneerVerified', 'true');
+                localStorage.setItem('pioneerContactType', signupData.type);
+                
+                alert('✅ Account Verified!\n\nWelcome to Pioneer, ' + signupData.name + '!\n\nYour ' + signupData.type + ' is confirmed! ⚡');
+                showApp();
+            } else {
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        function resendOTP() {
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            alert(`New code sent: ${generatedOTP}\n\nTo: ${signupData.contact}\n\nEnter this code ⚡`);
+            document.getElementById('otpError').classList.add('hidden');
         }
 
         function login() {
-            const email = document.getElementById('loginEmail').value;
+            const contact = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPass').value;
             
             if(!localStorage.getItem('pioneerUser')) {
@@ -157,11 +182,9 @@
                 return;
             }
             
-            if(email === localStorage.getItem('pioneerEmail') || email === localStorage.getItem('pioneerUser')) {
+            if(contact === localStorage.getItem('pioneerContact')) {
                 if(pass === localStorage.getItem('pioneerPass')) {
-                    currentUser = localStorage.getItem('pioneerUser');
                     showApp();
-                    loadPosts();
                 } else {
                     alert('Wrong password!');
                 }
@@ -173,133 +196,28 @@
         function showApp() {
             document.getElementById('loginPage').classList.add('hidden');
             document.getElementById('signupPage').classList.add('hidden');
+            document.getElementById('otpPage').classList.add('hidden');
             document.getElementById('mainApp').classList.remove('hidden');
-            currentUser = localStorage.getItem('pioneerUser') || 'BIG ENERGY';
-            document.getElementById('userDisplay').textContent = currentUser + ' ✅';
+            document.getElementById('welcomeName').textContent = localStorage.getItem('pioneerUser');
         }
 
         function showLanguages() {
-            const langs = ['English (US)', 'English (UK)', 'Yoruba', 'Hausa', 'Igbo', 'French', 'Arabic', 'Spanish', 'Portuguese'];
+            const langs = ['English (US)', 'English (UK)', 'Yoruba', 'Hausa', 'Igbo', 'French', 'Arabic', 'Spanish', 'Portuguese', 'Swahili'];
             const choice = prompt('Select Language:\n\n' + langs.map((l,i) => (i+1) + '. ' + l).join('\n'));
             if(choice) {
                 const lang = langs[parseInt(choice)-1] || 'English (US)';
                 document.getElementById('currentLang').textContent = lang;
-                alert('Language changed to: ' + lang + '\n\nPioneer 9.0 will translate the full app! 🌍');
             }
         }
 
-        function createPost() {
-            const text = document.getElementById('postInput').value;
-            if(!text) return;
-            
-            const post = {
-                id: Date.now(),
-                user: currentUser,
-                text: text,
-                time: 'Just now',
-                likes: 0,
-                comments: [],
-                liked: false
-            };
-            
-            posts.unshift(post);
-            localStorage.setItem('pioneerPosts', JSON.stringify(posts));
-            document.getElementById('postInput').value = '';
-            renderPosts();
+        function forgotPassword() {
+            alert('Forgot Password\n\nEnter your email/phone and we will send reset code!\n\nPioneer 9.0: Real email reset coming!');
         }
 
-        function loadPosts() {
-            const saved = localStorage.getItem('pioneerPosts');
-            if(saved) posts = JSON.parse(saved);
-            renderPosts();
-        }
-
-        function renderPosts() {
-            const container = document.getElementById('postsContainer');
-            container.innerHTML = posts.map(post => `
-                <div class="post">
-                    <div class="post-header">
-                        <div class="avatar">⚡</div>
-                        <div class="post-user">
-                            <div class="post-name">${post.user} ✅</div>
-                            <div class="post-time">${post.time}</div>
-                        </div>
-                    </div>
-                    <div class="post-content">${post.text}</div>
-                    <div class="post-stats">
-                        <span>👍 ${post.likes} likes</span>
-                        <span>💬 ${post.comments.length} comments</span>
-                    </div>
-                    <div class="post-buttons">
-                        <button class="post-btn-action ${post.liked ? 'liked' : ''}" onclick="likePost(${post.id})">👍 Like</button>
-                        <button class="post-btn-action" onclick="toggleComments(${post.id})">💬 Comment</button>
-                        <button class="post-btn-action" onclick="sharePost(${post.id})">↗️ Share</button>
-                    </div>
-                    <div id="comments-${post.id}" class="comments-section hidden">
-                        <div id="commentsList-${post.id}">
-                            ${post.comments.map(c => `
-                                <div class="comment">
-                                    <div class="comment-avatar">👤</div>
-                                    <div class="comment-bubble">
-                                        <div class="comment-name">${c.user}</div>
-                                        <div class="comment-text">${c.text}</div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="comment-input-box">
-                            <input type="text" id="commentInput-${post.id}" class="comment-input" placeholder="Write a comment...">
-                            <button class="comment-send" onclick="addComment(${post.id})">Send</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function likePost(id) {
-            const post = posts.find(p => p.id === id);
-            if(post.liked) {
-                post.likes--;
-                post.liked = false;
-            } else {
-                post.likes++;
-                post.liked = true;
-            }
-            localStorage.setItem('pioneerPosts', JSON.stringify(posts));
-            renderPosts();
-        }
-
-        function toggleComments(id) {
-            const section = document.getElementById('comments-' + id);
-            section.classList.toggle('hidden');
-        }
-
-        function addComment(postId) {
-            const input = document.getElementById('commentInput-' + postId);
-            const text = input.value;
-            if(!text) return;
-            
-            const post = posts.find(p => p.id === postId);
-            post.comments.push({ user: currentUser, text: text });
-            localStorage.setItem('pioneerPosts', JSON.stringify(posts));
-            input.value = '';
-            renderPosts();
-            document.getElementById('comments-' + postId).classList.remove('hidden');
-        }
-
-        function sharePost(id) {
-            const post = posts.find(p => p.id === id);
-            const link = window.location.href;
-            if(navigator.share) {
-                navigator.share({
-                    title: 'Pioneer Post',
-                    text: post.user + ': ' + post.text,
-                    url: link
-                });
-            } else {
-                prompt('Copy this link to share:', link);
-            }
+        // Check if logged in
+        if(localStorage.getItem('pioneerUser')) {
+            showApp();
         }
     </script>
 </body>
-                </html>
+    </html>
