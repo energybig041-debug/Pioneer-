@@ -3,119 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pioneer 8.0 - By BIG ENERGY</title>
+    <title>Pioneer - By BIG ENERGY</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #18191a; color: #e4e6eb; }
-      .hidden { display: none!important; }
-       .auth-page { min-height: 100vh; background: #18191a; display: flex; align-items: center; justify-content: center; padding: 20px; }
-       .auth-box { width: 100%; max-width: 432px; background: #242526; border-radius: 8px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,.1); }
-       .auth-title { font-size: 40px; font-weight: 900; text-align: center; margin-bottom: 4px; color: #667eea; }
-       .auth-subtitle { text-align: center; color: #b0b3b8; font-size: 15px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #3e4042; }
-       .input { width: 100%; padding: 14px 16px; margin-bottom: 10px; background: #3a3b3c; border: 1px solid #3e4042; border-radius: 6px; color: white; font-size: 15px; }
-       .input:focus { outline: none; border-color: #667eea; }
-       .input-row { display: flex; gap: 10px; }
-       .input-half { flex: 1; }
-       .label { font-size: 12px; color: #b0b3b8; margin-bottom: 4px; display: block; }
-       .select { width: 100%; padding: 14px 16px; margin-bottom: 10px; background: #3a3b3c; border: 1px solid #3e4042; border-radius: 6px; color: white; font-size: 15px; }
-       .radio-group { display: flex; gap: 10px; margin-bottom: 10px; }
-       .radio-box { flex: 1; padding: 12px; background: #3a3b3c; border: 1px solid #3e4042; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-       .radio-box.selected { border-color: #667eea; }
-       .btn { width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 6px; font-size: 17px; font-weight: 700; cursor: pointer; margin: 8px 0; }
-       .btn-green { background: #42b72a; margin-top: 16px; }
-       .divider { text-align: center; color: #b0b3b8; font-size: 12px; margin: 16px 0; position: relative; }
-       .divider::before { content: ''; position: absolute; left: 0; top: 50%; width: 45%; height: 1px; background: #3e4042; }
-       .divider::after { content: ''; position: absolute; right: 0; top: 50%; width: 45%; height: 1px; background: #3e4042; }
-       .login-link { text-align: center; color: #667eea; font-size: 15px; cursor: pointer; margin-top: 16px; }
-       .ceo-credit { text-align: center; margin-top: 24px; font-size: 13px; color: #b0b3b8; font-weight: 600; }
-       .otp-input { text-align: center; font-size: 24px; letter-spacing: 8px; font-weight: 700; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background: #000; 
+            color: #e4e6eb; 
+        }
+       .hidden { display: none!important; }
+       
+       /* FACEBOOK LOGIN PAGE */
+       .fb-login-page { 
+            min-height: 100vh; 
+            background: #000; 
+            display: flex; 
+            flex-direction: column;
+            padding: 20px; 
+        }
+       
+       .lang-selector {
+            text-align: center;
+            color: #b0b3b8;
+            font-size: 14px;
+            margin: 20px 0 40px;
+            cursor: pointer;
+        }
+        
+       .fb-logo {
+            width: 60px;
+            height: 60px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+        }
+        
+       .login-form {
+            max-width: 396px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+       .input-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+       .fb-input { 
+            width: 100%; 
+            padding: 18px 16px; 
+            background: #1c1e21; 
+            border: 1px solid #3a3b3c; 
+            border-radius: 6px; 
+            color: white; 
+            font-size: 17px; 
+        }
+        
+       .fb-input:focus { 
+            outline: none; 
+            border-color: #667eea; 
+        }
+        
+       .fb-input::placeholder {
+            color: #8a8d91;
+        }
+        
+       .info-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #8a8d91;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #8a8d91;
+            cursor: pointer;
+        }
+        
+       .fb-btn { 
+            width: 100%; 
+            padding: 14px; 
+            background: #667eea; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 20px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin: 16px 0; 
+        }
+        
+       .fb-btn:active {
+            background: #5568d3;
+        }
+        
+       .forgot-link { 
+            text-align: center; 
+            color: #667eea; 
+            font-size: 16px; 
+            cursor: pointer; 
+            margin: 16px 0; 
+        }
+        
+       .divider {
+            height: 1px;
+            background: #3a3b3c;
+            margin: 24px 0;
+        }
+        
+       .create-btn { 
+            width: 100%;
+            max-width: 200px;
+            padding: 14px; 
+            background: transparent; 
+            color: #667eea; 
+            border: 1px solid #667eea; 
+            border-radius: 6px; 
+            font-size: 17px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin: 0 auto;
+            display: block;
+        }
+        
+       .meta-footer {
+            text-align: center;
+            margin-top: auto;
+            padding: 20px 0;
+            color: #8a8d91;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+       .meta-logo {
+            font-weight: 700;
+        }
+        
+       .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 28px;
+            color: #e4e6eb;
+            cursor: pointer;
+        }
+
+       /* MAIN APP */
        .header { background: #242526; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #3e4042; }
        .logo { font-size: 28px; font-weight: 900; color: #667eea; }
-       .feed { background: #18191a; padding: 12px; }
+       .feed { background: #18191a; padding: 12px; min-height: calc(100vh - 60px); }
        .post { background: #242526; margin-bottom: 8px; border-radius: 8px; padding: 12px; }
     </style>
 </head>
 <body>
-    <!-- LOGIN PAGE -->
-    <div id="loginPage" class="auth-page">
-        <div class="auth-box">
-            <div class="auth-title">pioneer</div>
-            <div class="auth-subtitle">Connect with BIG ENERGY and the world</div>
-            <input type="text" id="loginEmail" class="input" placeholder="Email or phone number">
-            <input type="password" id="loginPass" class="input" placeholder="Password">
-            <button class="btn" onclick="login()">Log In</button>
-            <div class="login-link" onclick="showForgot()">Forgot password?</div>
-            <div class="divider">or</div>
-            <button class="btn btn-green" onclick="showSignup()">Create new account</button>
-            <div class="ceo-credit">⚡ By BIG ENERGY ⚡</div>
+    <!-- FACEBOOK STYLE LOGIN -->
+    <div id="loginPage" class="fb-login-page">
+        <div class="back-arrow" onclick="alert('Going back...')">←</div>
+        
+        <div class="lang-selector" onclick="showLanguages()">
+            English (US) ▼
+        </div>
+        
+        <div class="fb-logo">P</div>
+        
+        <div class="login-form">
+            <div class="input-group">
+                <input type="text" id="loginEmail" class="fb-input" placeholder="Mobile number or email">
+                <div class="info-icon" onclick="alert('Enter your Pioneer email or phone number')">i</div>
+            </div>
+            
+            <input type="password" id="loginPass" class="fb-input" placeholder="Password">
+            
+            <button class="fb-btn" onclick="login()">Log in</button>
+            
+            <div class="forgot-link" onclick="showForgot()">Forgot password?</div>
+            
+            <div class="divider"></div>
+            
+            <button class="create-btn" onclick="showSignup()">Create new account</button>
+        </div>
+        
+        <div class="meta-footer">
+            <span class="meta-logo">∞</span>
+            <span>Pioneer by BIG ENERGY</span>
         </div>
     </div>
 
-    <!-- SIGNUP PAGE -->
-    <div id="signupPage" class="auth-page hidden">
-        <div class="auth-box">
-            <div class="auth-title" style="font-size: 32px;">Sign Up</div>
-            <div class="auth-subtitle">It's quick and easy.</div>
-            
-            <div class="input-row">
-                <input type="text" id="firstName" class="input input-half" placeholder="First name">
-                <input type="text" id="lastName" class="input input-half" placeholder="Last name">
-            </div>
-            
-            <input type="text" id="signupEmail" class="input" placeholder="Mobile number or email">
-            <input type="password" id="signupPass" class="input" placeholder="New password">
-            
-            <label class="label">Birthday</label>
-            <div class="input-row">
-                <select id="birthMonth" class="select input-half">
-                    <option value="">Month</option>
-                    <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
-                    <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
-                    <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
-                    <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
-                </select>
-                <select id="birthDay" class="select" style="flex: 0.7;">
-                    <option value="">Day</option>
-                </select>
-                <select id="birthYear" class="select" style="flex: 0.9;">
-                    <option value="">Year</option>
-                </select>
-            </div>
-            
-            <label class="label">Gender</label>
-            <div class="radio-group">
-                <div class="radio-box" onclick="selectGender('Female')">
-                    <span>Female</span>
-                    <input type="radio" name="gender" value="Female">
-                </div>
-                <div class="radio-box" onclick="selectGender('Male')">
-                    <span>Male</span>
-                    <input type="radio" name="gender" value="Male">
-                </div>
-                <div class="radio-box" onclick="selectGender('Custom')">
-                    <span>Custom</span>
-                    <input type="radio" name="gender" value="Custom">
-                </div>
-            </div>
-            
-            <div style="font-size: 11px; color: #b0b3b8; margin: 12px 0; line-height: 1.4;">
-                By clicking Sign Up, you agree to Pioneer Terms. You may receive SMS notifications from us.
-            </div>
-            
-            <button class="btn btn-green" onclick="startSignup()">Sign Up</button>
-            <div class="login-link" onclick="showLogin()">Already have an account?</div>
-        </div>
-    </div>
-
-    <!-- OTP VERIFY PAGE -->
-    <div id="otpPage" class="auth-page hidden">
-        <div class="auth-box">
-            <div class="auth-title" style="font-size: 24px;">Enter confirmation code</div>
-            <div class="auth-subtitle" id="otpSubtitle">We sent a 6-digit code to your email/phone</div>
-            <input type="text" id="otpCode" class="input otp-input" placeholder="000000" maxlength="6">
-            <button class="btn" onclick="verifyOTP()">Confirm</button>
-            <div class="login-link" onclick="resendOTP()">Didn't get a code? Resend</div>
-            <div class="login-link" onclick="showSignup()">Back</div>
+    <!-- SIGNUP PAGE - SAME AS BEFORE -->
+    <div id="signupPage" class="fb-login-page hidden">
+        <div class="back-arrow" onclick="showLogin()">←</div>
+        <div class="fb-logo" style="margin-top: 60px;">P</div>
+        <div class="login-form">
+            <input type="text" id="firstName" class="fb-input" placeholder="First name" style="margin-bottom: 12px;">
+            <input type="text" id="lastName" class="fb-input" placeholder="Last name" style="margin-bottom: 12px;">
+            <input type="text" id="signupEmail" class="fb-input" placeholder="Mobile number or email" style="margin-bottom: 12px;">
+            <input type="password" id="signupPass" class="fb-input" placeholder="New password" style="margin-bottom: 12px;">
+            <button class="fb-btn" onclick="quickSignup()">Sign Up</button>
+            <div class="forgot-link" onclick="showLogin()">Already have an account?</div>
         </div>
     </div>
 
@@ -128,34 +226,16 @@
         <div class="feed">
             <div class="post">
                 <div style="font-weight: 700; margin-bottom: 8px;">Welcome to Pioneer, <span id="welcomeName">BIG ENERGY</span>! ⚡</div>
-                <div style="color: #b0b3b8; font-size: 14px;">Your account is verified and ready. Start posting!</div>
+                <div style="color: #b0b3b8; font-size: 14px;">Your Facebook-style login is LIVE! Start posting!</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Populate days and years
-        const daySelect = document.getElementById('birthDay');
-        for(let i = 1; i <= 31; i++) {
-            daySelect.innerHTML += `<option value="${i}">${i}</option>`;
-        }
-        const yearSelect = document.getElementById('birthYear');
-        const currentYear = new Date().getFullYear();
-        for(let i = currentYear; i >= currentYear - 100; i--) {
-            yearSelect.innerHTML += `<option value="${i}">${i}</option>`;
-        }
-
-        // Check if logged in
-        if(localStorage.getItem('pioneerUser')) {
-            showApp();
-        }
-
-        let generatedOTP = '';
-        let signupData = {};
+        if(localStorage.getItem('pioneerUser')) showApp();
 
         function showLogin() {
             document.getElementById('signupPage').classList.add('hidden');
-            document.getElementById('otpPage').classList.add('hidden');
             document.getElementById('loginPage').classList.remove('hidden');
         }
 
@@ -164,67 +244,24 @@
             document.getElementById('signupPage').classList.remove('hidden');
         }
 
-        function selectGender(gender) {
-            document.querySelectorAll('.radio-box').forEach(box => box.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
-            document.querySelector(`input[value="${gender}"]`).checked = true;
-        }
-
-        function startSignup() {
+        function quickSignup() {
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('signupEmail').value;
             const pass = document.getElementById('signupPass').value;
-            const month = document.getElementById('birthMonth').value;
-            const day = document.getElementById('birthDay').value;
-            const year = document.getElementById('birthYear').value;
-            const gender = document.querySelector('input[name="gender"]:checked');
 
-            if(!firstName || !lastName || !email || !pass || !month || !day || !year || !gender) {
+            if(!firstName || !lastName || !email || !pass) {
                 alert('Please fill all fields!');
                 return;
             }
 
-            signupData = {
-                name: firstName + ' ' + lastName,
-                email: email,
-                pass: pass,
-                birthday: `${year}-${month}-${day}`,
-                gender: gender.value
-            };
-
-            // Generate OTP
-            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-            document.getElementById('otpSubtitle').textContent = `We sent a 6-digit code to ${email}`;
+            localStorage.setItem('pioneerUser', firstName + ' ' + lastName);
+            localStorage.setItem('pioneerEmail', email);
+            localStorage.setItem('pioneerPass', pass);
+            localStorage.setItem('pioneerVerified', 'true');
             
-            // Show OTP page
-            document.getElementById('signupPage').classList.add('hidden');
-            document.getElementById('otpPage').classList.remove('hidden');
-            
-            alert(`PIONEER VERIFICATION\nYour code is: ${generatedOTP}\n\n(In production, this sends to email/SMS)\n\nEnter this code to continue ⚡`);
-        }
-
-        function verifyOTP() {
-            const code = document.getElementById('otpCode').value;
-            if(code === generatedOTP) {
-                // Save user
-                localStorage.setItem('pioneerUser', signupData.name);
-                localStorage.setItem('pioneerEmail', signupData.email);
-                localStorage.setItem('pioneerPass', signupData.pass);
-                localStorage.setItem('pioneerBirthday', signupData.birthday);
-                localStorage.setItem('pioneerGender', signupData.gender);
-                localStorage.setItem('pioneerVerified', 'true');
-                
-                alert('✅ Account Verified!\n\nWelcome to Pioneer, ' + signupData.name + '!\n\nYou are now BIG ENERGY! ⚡');
-                showApp();
-            } else {
-                alert('❌ Wrong code! Try again.\n\nHint: ' + generatedOTP);
-            }
-        }
-
-        function resendOTP() {
-            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-            alert(`New code sent: ${generatedOTP}\n\nEnter this code ⚡`);
+            alert('✅ Account Created!\n\nWelcome to Pioneer, ' + firstName + '!\n\nYou are now verified! ⚡');
+            showApp();
         }
 
         function login() {
@@ -250,15 +287,19 @@
         function showApp() {
             document.getElementById('loginPage').classList.add('hidden');
             document.getElementById('signupPage').classList.add('hidden');
-            document.getElementById('otpPage').classList.add('hidden');
             document.getElementById('mainApp').classList.remove('hidden');
             document.getElementById('userDisplay').textContent = localStorage.getItem('pioneerUser') + ' ✅';
             document.getElementById('welcomeName').textContent = localStorage.getItem('pioneerUser');
         }
 
         function showForgot() {
-            alert('Forgot Password\n\nPioneer 9.0 will send reset link to your email!\n\nFor now: Remember your password 😅');
+            alert('Forgot Password\n\nPioneer 9.0 will send reset link!\n\nFor now: Remember your password 😅');
+        }
+
+        function showLanguages() {
+            const langs = ['English (US)', 'English (UK)', 'Yoruba', 'Hausa', 'Igbo', 'French', 'Arabic', 'Spanish'];
+            alert('Select Language:\n\n' + langs.join('\n') + '\n\nPioneer 9.0 will support all languages!\n\nCurrent: English (US)');
         }
     </script>
 </body>
-                    </html>
+                </html>
