@@ -1,38 +1,35 @@
-function showMessages() {
-    document.getElementById('menuPage').classList.add('hidden');
-    document.getElementById('messagesPage').classList.remove('hidden');
-}
-
-function showSecurity() {
-    document.getElementById('menuPage').classList.add('hidden');
-    document.getElementById('securityPage').classList.remove('hidden');
-}
-
-function openChat(name) {
-    const msg = prompt('Message to ' + name + ':');
-    if(msg) alert('Sent to ' + name + ': ' + msg + '\n\nPioneer 11.0 will show real chat! 💬');
-}
-
-function showMedia() {
-    alert('📸 Media Share\n\nUpload photos/videos to Pioneer feed!\n\nPioneer 11.0 will add gallery!');
-}
-
-function showForums() {
-    alert('💭 Pioneer Forums\n\nDiscuss: Tech, Business, Sports, Music\n\nPioneer 11.0 will add Reddit-style threads!');
-}
-
-function startRecording() {
-    alert('🎥 Screen Recording\n\nPioneer 11.0 will record your screen!\n\nFor now: Use your phone recorder 😅');
-}
-
-function toggle2FA() {
-    const status = document.getElementById('2faStatus');
-    if(status.textContent === 'OFF') {
-        status.textContent = 'ON';
-        status.style.color = '#42b72a';
-        alert('🔐 2FA Enabled!\n\nYour Pioneer account is now extra secure! 🛡️');
+function login() {
+    const name = document.getElementById('loginName').value;
+    const pass = document.getElementById('loginPass').value;
+    
+    // If no account exists, auto-create one
+    if(!localStorage.getItem('pioneerUser')) {
+        if(name && pass) {
+            localStorage.setItem('pioneerUser', name);
+            localStorage.setItem('pioneerPass', pass);
+            alert('Welcome to Pioneer, ' + name + '! ⚡ Account created!');
+            showApp();
+        } else {
+            alert('Type your name and password first!');
+        }
+        return;
+    }
+    
+    // If account exists, check it
+    if(name === localStorage.getItem('pioneerUser')) {
+        showApp();
     } else {
-        status.textContent = 'OFF';
-        status.style.color = '#b0b3b8';
+        alert('Wrong details! Your account name is: ' + localStorage.getItem('pioneerUser'));
+    }
+}
+
+function showSignup() {
+    const name = prompt('Full Name:');
+    const pass = prompt('Password:');
+    if(name && pass) {
+        localStorage.setItem('pioneerUser', name);
+        localStorage.setItem('pioneerPass', pass);
+        alert('Account created! Welcome ' + name + ' ⚡');
+        showApp();
     }
 }
